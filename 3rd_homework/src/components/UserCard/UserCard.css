@@ -57,7 +57,7 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
   position: relative;
 }
 
-.user-card:hover, .add-user:hover {
+.user-card:hover, .add-user:hover, .edit-cancel-submit:hover {
   box-shadow: 0 12px 10px 0 rgba(0,0,0,1);
   transform: translateY(-5px);
 }
@@ -79,7 +79,7 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
   background: darkslategray;
 }
 
-.add-user:active {
+.add-user:active, .edit-cancel-submit:active {
   transform: translateY(-3px);
   box-shadow: 0 6px 10px 0 rgba(0,0,0,1);
 }
@@ -192,4 +192,21 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
   width: 285px;
   display: flex;
   justify-content: space-between;
+}
+
+.edit-field {
+  border: 2px solid darkgoldenrod;
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.edit-cancel-submit {
+  border-radius: 5px;
+  padding: 1px 5px;
+  margin: 0 2px 0 0;
+  color: darkgoldenrod;
+  border: 2px solid darkgoldenrod;
+  background: darkslategray;
 }

@@ -1,39 +1,267 @@
 import React from 'react';
 import './UserCard.css';
+import EditComponent from './EditComponent.js'
 
-const UserCard = (props) => {
+class UserCard extends React.Component {
 
-  const { id, name, username, email, address, phone, website, company, removeElement, currentIndex } = props;
-  const { street, suite, city, zipcode } = address;
-  const { name: companyName, catchPhrase, bs } = company;
-  let dash = '-';
+  state = {
+    editName: false,
+    editUserName: false,
+    editEmail: false,
+    editPhone: false,
+    editWebsite: false,
+    editStreet: false,
+    editSuite: false,
+    editCity: false,
+    editZipCode: false,
+    editCompanyName: false,
+    editCatchPhrase: false,
+    editBS: false,
+    newValue: '',
 
-  return (
-      <div className='user-card'>
-        <span className="close" onClick={() => removeElement(currentIndex)}></span>
-        <p><b>ID:</b> {id}</p>
-        <p><b>Name:</b> {name}</p>
-        <p><b>User Name:</b> {username}</p>
-        <p><b>email:</b> {email}</p>
-        <p><b>Phone:</b> {phone}</p>
-        <p><b>Website:</b> {website || dash}</p>
-        <div className='info-wrapper'>
-          <div className='address'>
-            <h3>Address:</h3>
-            <p><b>Street:</b> {street || dash}</p>
-            <p><b>Suite:</b> {suite || dash}</p>
-            <p><b>Ciry:</b> {city || dash}</p>
-            <p><b>Zip-code:</b> {zipcode || dash}</p>
-          </div>
-          <div className='company'>
-            <h3>Company:</h3>
-            <p><b>Name:</b> {companyName || dash}</p>
-            <p><b>Catch Phrase:</b> <br />{catchPhrase || dash}</p>
-            <p><b>BS:</b> <br />{bs || dash}</p>
+  }
+
+  toggleNeedToEditValue = (value) => {
+    this.setState({[value]: !this.state[value]});
+  }
+
+  changeNewValue = (value) => {
+    this.setState({newValue: value})
+  }
+
+  render() {
+    const {
+      id,
+      name,
+      username,
+      email,
+      address,
+      phone,
+      website,
+      company,
+      removeElement,
+      currentIndex,
+      editValue,
+    } = this.props;
+    const { street, suite, city, zipcode } = address;
+    const { name: companyName, catchPhrase, bs } = company;
+    const dash = '-';
+
+    const {
+      editName,
+      newValue,
+      editUserName,
+      editEmail,
+      editPhone,
+      editWebsite,
+      editStreet,
+      editSuite,
+      editCity,
+      editZipCode,
+      editCompanyName,
+      editCatchPhrase,
+      editBS,
+    } = this.state;
+
+    const {
+      toggleNeedToEditValue,
+      changeNewValue,
+    } = this;
+
+    return (
+        <div className='user-card'>
+          <span className="close" onClick={() => removeElement(currentIndex)}></span>
+          <p>
+            <b>ID: </b> 
+            {id}
+          </p>
+          <p onDoubleClick={() => toggleNeedToEditValue('editName')}>
+            <b>Name: </b> 
+            {editName 
+              ? <EditComponent 
+                  value='name'
+                  toggleValue='editName'
+                  changeNewValue={changeNewValue}
+                  editValue={editValue}
+                  toggleNeedToEditValue={toggleNeedToEditValue}
+                  newValue={newValue}
+                  currentIndex={currentIndex}
+                />
+              : name}
+          </p>
+          <p onDoubleClick={() => toggleNeedToEditValue('editUserName')}>
+            <b>User Name: </b> 
+            {editUserName 
+              ? <EditComponent 
+                  value='username'
+                  toggleValue='editUserName'
+                  changeNewValue={changeNewValue}
+                  editValue={editValue}
+                  toggleNeedToEditValue={toggleNeedToEditValue}
+                  newValue={newValue}
+                  currentIndex={currentIndex}
+                />
+              : username}
+          </p>
+          <p onDoubleClick={() => toggleNeedToEditValue('editEmail')}>
+            <b>Email: </b> 
+            {editEmail 
+              ? <EditComponent 
+                  value='email'
+                  toggleValue='editEmail'
+                  changeNewValue={changeNewValue}
+                  editValue={editValue}
+                  toggleNeedToEditValue={toggleNeedToEditValue}
+                  newValue={newValue}
+                  currentIndex={currentIndex}
+                />
+              : email}
+          </p>
+          <p onDoubleClick={() => toggleNeedToEditValue('editPhone')}>
+            <b>Phone: </b> 
+            {editPhone 
+              ? <EditComponent 
+                  value='phone'
+                  toggleValue='editPhone'
+                  changeNewValue={changeNewValue}
+                  editValue={editValue}
+                  toggleNeedToEditValue={toggleNeedToEditValue}
+                  newValue={newValue}
+                  currentIndex={currentIndex}
+                />
+              : phone}
+          </p>
+          <p onDoubleClick={() => toggleNeedToEditValue('editWebsite')}>
+            <b>Website: </b> 
+            {editWebsite 
+              ? <EditComponent 
+                  value='website'
+                  toggleValue='editWebsite'
+                  changeNewValue={changeNewValue}
+                  editValue={editValue}
+                  toggleNeedToEditValue={toggleNeedToEditValue}
+                  newValue={newValue}
+                  currentIndex={currentIndex}
+                />
+              : (website || dash)}
+          </p>
+          <div className='info-wrapper'>
+            <div className='address'>
+              <h3>Address:</h3>
+              <p onDoubleClick={() => toggleNeedToEditValue('editStreet')}>
+                <b>Street: </b> 
+                {editStreet 
+                  ? <EditComponent 
+                      value='street'
+                      toggleValue='editStreet'
+                      objValue='address'
+                      changeNewValue={changeNewValue}
+                      editValue={editValue}
+                      toggleNeedToEditValue={toggleNeedToEditValue}
+                      newValue={newValue}
+                      currentIndex={currentIndex}
+                    />
+                  : (street || dash)}
+              </p>
+              <p onDoubleClick={() => toggleNeedToEditValue('editSuite')}>
+                <b>Suite: </b> 
+                {editSuite 
+                  ? <EditComponent 
+                      value='suite'
+                      toggleValue='editSuite'
+                      objValue='address'
+                      changeNewValue={changeNewValue}
+                      editValue={editValue}
+                      toggleNeedToEditValue={toggleNeedToEditValue}
+                      newValue={newValue}
+                      currentIndex={currentIndex}
+                    />
+                  : (suite || dash)}
+              </p>
+              <p onDoubleClick={() => toggleNeedToEditValue('editCity')}>
+                <b>City: </b> 
+                {editCity 
+                  ? <EditComponent 
+                      value='city'
+                      toggleValue='editCity'
+                      objValue='address'
+                      changeNewValue={changeNewValue}
+                      editValue={editValue}
+                      toggleNeedToEditValue={toggleNeedToEditValue}
+                      newValue={newValue}
+                      currentIndex={currentIndex}
+                    />
+                  : (city || dash)}
+              </p>
+              <p onDoubleClick={() => toggleNeedToEditValue('editZipCode')}>
+                <b>Zip-code: </b> 
+                {editZipCode 
+                  ? <EditComponent 
+                      value='zipcode'
+                      toggleValue='editZipCode'
+                      objValue='address'
+                      changeNewValue={changeNewValue}
+                      editValue={editValue}
+                      toggleNeedToEditValue={toggleNeedToEditValue}
+                      newValue={newValue}
+                      currentIndex={currentIndex}
+                    />
+                  : (zipcode || dash)}
+              </p>
+            </div>
+            <div className='company'>
+              <h3>Company:</h3>
+              <p onDoubleClick={() => toggleNeedToEditValue('editCompanyName')}>
+                <b>Name: </b> 
+                {editCompanyName 
+                  ? <EditComponent 
+                      value='name'
+                      toggleValue='editCompanyName'
+                      objValue='company'
+                      changeNewValue={changeNewValue}
+                      editValue={editValue}
+                      toggleNeedToEditValue={toggleNeedToEditValue}
+                      newValue={newValue}
+                      currentIndex={currentIndex}
+                    />
+                  : (companyName || dash)}
+              </p>
+              <p onDoubleClick={() => toggleNeedToEditValue('editCatchPhrase')}>
+                <b>Catch Phrase: </b> <br />
+                {editCatchPhrase 
+                  ? <EditComponent 
+                      value='catchPhrase'
+                      toggleValue='editCatchPhrase'
+                      objValue='company'
+                      changeNewValue={changeNewValue}
+                      editValue={editValue}
+                      toggleNeedToEditValue={toggleNeedToEditValue}
+                      newValue={newValue}
+                      currentIndex={currentIndex}
+                    />
+                  : (catchPhrase || dash)}
+              </p>
+              <p onDoubleClick={() => toggleNeedToEditValue('editBS')}>
+                <b>BS: </b> <br />
+                {editBS 
+                  ? <EditComponent 
+                      value='bs'
+                      toggleValue='editBS'
+                      objValue='company'
+                      changeNewValue={changeNewValue}
+                      editValue={editValue}
+                      toggleNeedToEditValue={toggleNeedToEditValue}
+                      newValue={newValue}
+                      currentIndex={currentIndex}
+                    />
+                  : (bs || dash)}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-  )
+      )
+  }
+
 };
 
 

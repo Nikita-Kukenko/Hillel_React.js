@@ -20,20 +20,8 @@ class UserCardsWrapper extends React.Component {
     this.setState({ userCardItems: users })
   }
 
-  handleChangeName = (e) => {
-    this.setState({ newName: e.target.value })
-  }
-
-  handleChangeUserName = (e) => {
-    this.setState({ newUserName: e.target.value })
-  }
-
-  handleChangeEmail = (e) => {
-    this.setState({ newUserEmail: e.target.value })
-  }
-
-  handleChangePhone = (e) => {
-    this.setState({ newUserPhone: e.target.value })
+  handleChangeValue = (e, value) => {
+    this.setState({ [value]: e.target.value })
   }
 
   toggleAddUserButton = () => {
@@ -61,7 +49,16 @@ class UserCardsWrapper extends React.Component {
     this.toggleAddUserButton();
   }
 
+  editValue = (value, index, key, objKey = '') => {
+      let item = users[index];
+      if (objKey) {
+        item[objKey][key] = value;
+      } else {
+        item[key] = value;
+      }
 
+      this.setState({ userCardItems: users })
+  }
 
   render() {
     const { 
@@ -79,10 +76,7 @@ class UserCardsWrapper extends React.Component {
         <React.Fragment>
           {showModal && <AddUserModal 
             addNewElement={this.addNewElement} 
-            handleChangeName={this.handleChangeName} 
-            handleChangeUserName={this.handleChangeUserName}
-            handleChangeEmail={this.handleChangeEmail}
-            handleChangePhone={this.handleChangePhone}
+            handleChangeValue={this.handleChangeValue} 
             toggleAddUserButton={this.toggleAddUserButton}
             isAddButtonDisabled={isAddButtonDisabled}
           />}
@@ -90,8 +84,14 @@ class UserCardsWrapper extends React.Component {
           <nav className='nav'>
             <button onClick={this.toggleAddUserButton} className='add-user'>Add User</button>
           </nav>
-          { userCardItems.map((props, index) => (
-            <UserCard {...props} key={props.id} removeElement={this.removeElement} currentIndex={index} />
+          { userCardItems.map((item, index) => (
+            <UserCard 
+              {...item}
+              key={item.id}
+              removeElement={this.removeElement}
+              currentIndex={index}
+              editValue={this.editValue}
+            />
           )) }
         </div>
         </React.Fragment>
