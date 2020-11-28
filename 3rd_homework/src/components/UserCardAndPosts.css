@@ -46,7 +46,7 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
   justify-content: center;
 }
 
-.user-card {
+.user-card, .user-post {
   padding: 10px;
   border-radius: 10px;
   margin: 0 10px 10px 0;
@@ -118,7 +118,7 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
   min-height: 120px;
 }
 
-.address h3, .company h3, p, .user-card {
+.address h3, .company h3, p, .user-card, .user-post {
   text-align: center;
 }
 
@@ -209,4 +209,36 @@ h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
   color: darkgoldenrod;
   border: 2px solid darkgoldenrod;
   background: darkslategray;
+}
+
+.posts-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.posts-wrapper .user-card {
+  margin: 20px auto 10px;
+}
+
+.posts-wrapper .user-post {
+  margin: 0 auto 10px;
+}
+
+.post-title {
+ margin: 5px 0;
+ font-size: 18px;
+ font-weight: 700;
+}
+
+.post-body {
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+.user-name {
+  font-weight: 800;
+  font-style: italic;
+  text-align: right;
+  margin: 5px 0;
 }
