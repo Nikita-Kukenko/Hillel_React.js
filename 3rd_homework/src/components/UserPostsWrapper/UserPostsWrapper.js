@@ -9,7 +9,7 @@ class UserPostsWrapper extends React.Component {
       userPostsItems: [],
     }
 
-  componentWillMount(){
+  componentDidMount(){
     const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
     
     fetch(postsUrl)
@@ -53,3 +53,4 @@ class UserPostsWrapper extends React.Component {
 }
 
 export default UserPostsWrapper;
+

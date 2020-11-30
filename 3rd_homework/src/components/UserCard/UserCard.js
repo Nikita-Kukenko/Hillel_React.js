@@ -17,8 +17,7 @@ class UserCard extends React.Component {
     editCompanyName: false,
     editCatchPhrase: false,
     editBS: false,
-    newValue: '',
-
+    newValue: ''
   }
 
   toggleNeedToEditValue = value => {

@@ -6,7 +6,7 @@ import UserPostsWrapper from './UserPostsWrapper/UserPostsWrapper.js';
 class MyApp extends React.Component {
 
   state = {
-    userCardItems: null,
+    userCardItems: [],
     newName: '',
     newUserName: '',
     newUserEmail: '',
@@ -14,7 +14,7 @@ class MyApp extends React.Component {
     showModal: false,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const usersUrl = 'https://jsonplaceholder.typicode.com/users';
 
     fetch(usersUrl)
@@ -107,10 +107,6 @@ class MyApp extends React.Component {
       handleChangeValue,
       toggleAddUserButton
     } = this;
-
-    if(!userCardItems) {
-      return null
-    }
 
     const isAddButtonDisabled = newName && newUserName && newUserEmail && newUserPhone;
 
