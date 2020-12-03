@@ -1,56 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import UserPosts from "../UserPosts/UserPosts.js";
 import UserCard from '../UserCard/UserCard.js'
 import '../UserCardAndPosts.css';
 
-class UserPostsWrapper extends React.Component {
-  
-  state = {
-      userPostsItems: [],
-    }
+const UserPostsWrapper = ({ match, editValue, handleChangeValue, userCardItems }) => {
 
-  componentDidMount(){
+  const [userPostsItems, setUserPostsItems] = useState([]);
+
+  useEffect(() => {
     const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
-    
+
     fetch(postsUrl)
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
-      .then((posts) => {
-        const userPosts = posts.filter(item => item.userId === +this.props.match.params.id);
-        this.setState((prevState) => {
-          return {...prevState, userPostsItems: userPosts}
-        })
+      .then(posts => {
+        const userPosts = posts.filter(item => item.userId === +match.params.id);
+        setUserPostsItems(userPosts);
       })
-  }
+  }, []);
 
-  render() {
-    const { userPostsItems } = this.state;
-    const { editValue, handleChangeValue, userCardItems } = this.props;
+  const userInfo = userCardItems.filter(item => item.id === +match.params.id);
+  const currentIndex = userInfo[0].id - 1;
+  const name = userInfo[0].name;
 
-    const userInfo = userCardItems.filter(item => item.id === +this.props.match.params.id);
-    const currentIndex = userInfo[0].id - 1;
-    const name = userInfo[0].name;
-
-    return (
-      <div className='posts-wrapper'>
-         <UserCard 
-          {...userInfo[0]}
-          editValue={editValue}
-          handleChangeValue={handleChangeValue}
-          currentIndex={currentIndex}
+  return (
+    <div className='posts-wrapper'>
+       <UserCard 
+        {...userInfo[0]}
+        editValue={editValue}
+        handleChangeValue={handleChangeValue}
+        currentIndex={currentIndex}
+      />
+      {userPostsItems.map( item => (
+        <UserPosts
+          {...item}
+          key={item.id}
+          name={name}
         />
-        {userPostsItems.map(item => (
-            <UserPosts
-              {...item}
-              key={item.id}
-              name={name}
-            />
-          ))}
-      </div>
-    )
-  }
-}
+      ))}
+    </div>
+  )
+};
 
 export default UserPostsWrapper;
-

@@ -1,11 +1,12 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import UserCardsWrapper from './UserCardsWrapper/UserCardsWrapper.js';
 import UserPostsWrapper from './UserPostsWrapper/UserPostsWrapper.js';
 
-class MyApp extends React.Component {
+const MyApp = () => {
 
-  state = {
+  const myAppData = {
     userCardItems: [],
     newName: '',
     newUserName: '',
@@ -14,45 +15,51 @@ class MyApp extends React.Component {
     showModal: false,
   }
 
-  componentDidMount() {
+  const [appData, setAppData] = useState(myAppData);
+
+  useEffect(() => {
     const usersUrl = 'https://jsonplaceholder.typicode.com/users';
 
     fetch(usersUrl)
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
-      .then((users) => {
-        this.setState((prevState) => { 
-          return { ...prevState, userCardItems: users }
+      .then(users => {
+        setAppData(prevAppData => {
+          return { ...prevAppData, userCardItems: users }
         });
       })
-  }
+  }, []);
 
-  removeElement = (e, index) => {
+  const removeElement = (e, index) => {
     e.stopPropagation()
-    const items = this.state.userCardItems;
+    const items = appData.userCardItems;
     items.splice(index, 1);
-    this.setState(prevState => { 
-      return { ...prevState, userCardItems: items }
+    setAppData(prevAppData => {
+      return { ...prevAppData, userCardItems: items };
     });
   }
 
-  handleChangeValue = (e, value) => {
-    this.setState({ [value]: e.target.value })
+  const handleChangeValue = (e, value) => {
+    setAppData(prevAppData => {
+      return { ...prevAppData, [value]: e.target.value };
+    })
   }
 
-  toggleAddUserButton = () => {
-    this.setState({ showModal: !this.state.showModal });
+  const toggleAddUserButton = () => {
+    setAppData(prevAppData => {
+      return { ...prevAppData, showModal: !appData.showModal };
+    });
   }
 
-  addNewElement = () => {
-    const items = this.state.userCardItems;
+  const addNewElement = () => {
+    const items = appData.userCardItems;
     const {
       newName,
       newUserName,
       newUserEmail,
       newUserPhone
-    } = this.state;
+    } = appData;
 
     items.push({
       id: Math.round(Math.random() * (1000000 - 1) + 1),
@@ -63,80 +70,74 @@ class MyApp extends React.Component {
       address: {},
       company: {}
     })
-    this.setState(prevState => { 
-      return { ...prevState, userCardItems: items }
+    setAppData(prevAppData => {
+      return { ...prevAppData, userCardItems: items }
     });
-    this.setState({
-      userCardItems: items,
-      newName: '',
-      newUserName: '',
-      newUserEmail: '',
-      newUserPhone: '',
+    setAppData(prevAppData => {
+      return {
+        ...prevAppData,
+        userCardItems: items,
+        newName: '',
+        newUserName: '',
+        newUserEmail: '',
+        newUserPhone: '',
+      }
     });
 
-    this.toggleAddUserButton();
+    toggleAddUserButton();
   }
 
-  editValue = (value, index, key, objKey = '') => {
-    let item = this.state.userCardItems[index];
+  const editValue = (value, index, key, objKey = '') => {
+    let item = appData.userCardItems[index];
     if (objKey) {
       item[objKey][key] = value;
     } else {
       item[key] = value;
     }
 
-    this.setState(prevState => { 
-      return { ...prevState, userCardItems: this.state.userCardItems }
+    setAppData(prevAppData => {
+      return { ...prevAppData, userCardItems: appData.userCardItems }
     });
-}
-
-  render() {
-    const {
-      userCardItems,
-      showModal,
-      newName,
-      newUserName,
-      newUserEmail,
-      newUserPhone
-    } = this.state;
-
-    const {
-      removeElement,
-      editValue,
-      addNewElement,
-      handleChangeValue,
-      toggleAddUserButton
-    } = this;
-
-    const isAddButtonDisabled = newName && newUserName && newUserEmail && newUserPhone;
-
-    return (
-      <React.Fragment>
-        <Route path="/" exact render={ props =>
-            <UserCardsWrapper
-              {...props}
-              showModal={showModal}
-              userCardItems={[...userCardItems]}
-              removeElement={removeElement}
-              editValue={editValue}
-              addNewElement={addNewElement} 
-              handleChangeValue={handleChangeValue} 
-              toggleAddUserButton={toggleAddUserButton}
-              isAddButtonDisabled={isAddButtonDisabled}
-            />
-          } 
-        />
-        <Route path="/user/:id" exact render={ props => 
-            <UserPostsWrapper
-              {...props}
-              userCardItems={[...userCardItems]}
-              editValue={editValue}
-              handleChangeValue={handleChangeValue}
-            />
-          } />
-      </React.Fragment>
-    )
   }
-}
+
+  const {
+    userCardItems,
+    showModal,
+    newName,
+    newUserName,
+    newUserEmail,
+    newUserPhone
+  } = appData;
+
+  const isAddButtonDisabled = newName && newUserName && newUserEmail && newUserPhone;
+
+  return (
+    <React.Fragment>
+      <Switch>
+        <Route path="/" exact render={ props =>
+          <UserCardsWrapper
+            {...props}
+            showModal={showModal}
+            userCardItems={[...userCardItems]}
+            removeElement={removeElement}
+            editValue={editValue}
+            addNewElement={addNewElement} 
+            handleChangeValue={handleChangeValue} 
+            toggleAddUserButton={toggleAddUserButton}
+            isAddButtonDisabled={isAddButtonDisabled}
+          />
+        } />
+        <Route path="/user/:id" exact render={ props =>
+          <UserPostsWrapper
+            {...props}
+            userCardItems={[...userCardItems]}
+            editValue={editValue}
+            handleChangeValue={handleChangeValue}
+          />
+        } />
+      </Switch>
+    </React.Fragment>
+  )
+};
 
 export default MyApp;
