@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom'
 
 import '../UserCardAndPosts.css';
@@ -15,5 +16,11 @@ const UserPosts = ({ title, body, name }) => {
     </React.Fragment>
   )
 };
+
+UserPosts.propTypes = {
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+}
 
 export default withRouter(UserPosts);

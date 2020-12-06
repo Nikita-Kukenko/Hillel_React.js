@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const EditComponent = props => {
   const {
@@ -26,5 +27,20 @@ const EditComponent = props => {
     </React.Fragment>
   );
 };
+
+EditComponent.defaultProps = {
+  objValue: '',
+}
+
+EditComponent.propTypes = {
+  value: PropTypes.string.isRequired,
+  toggleValue: PropTypes.string.isRequired,
+  objValue: PropTypes.string,
+  changeNewValue: PropTypes.func.isRequired,
+  editValue: PropTypes.func.isRequired,
+  toggleNeedToEditValue: PropTypes.func.isRequired,
+  newValue: PropTypes.string.isRequired,
+  currentIndex: PropTypes.number.isRequired
+}
 
 export default EditComponent;

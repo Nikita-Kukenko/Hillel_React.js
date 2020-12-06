@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import UserPosts from "../UserPosts/UserPosts.js";
 import UserCard from '../UserCard/UserCard.js'
@@ -19,6 +20,7 @@ const UserPostsWrapper = ({ match, editValue, handleChangeValue, userCardItems }
         const userPosts = posts.filter(item => item.userId === +match.params.id);
         setUserPostsItems(userPosts);
       })
+      .catch(error => console.log(error));
   }, []);
 
   const userInfo = userCardItems.filter(item => item.id === +match.params.id);
@@ -27,21 +29,32 @@ const UserPostsWrapper = ({ match, editValue, handleChangeValue, userCardItems }
 
   return (
     <div className='posts-wrapper'>
-       <UserCard 
-        {...userInfo[0]}
-        editValue={editValue}
-        handleChangeValue={handleChangeValue}
-        currentIndex={currentIndex}
-      />
-      {userPostsItems.map( item => (
-        <UserPosts
-          {...item}
-          key={item.id}
-          name={name}
-        />
-      ))}
+       {
+         userInfo && <UserCard
+         {...userInfo[0]}
+         editValue={editValue}
+         handleChangeValue={handleChangeValue}
+         currentIndex={currentIndex}
+       />
+       }
+      {
+        userPostsItems && userPostsItems.map( item => (
+          <UserPosts
+            {...item}
+            key={item.id}
+            name={name}
+          />
+        ))
+      }
     </div>
   )
 };
+
+UserPostsWrapper.propTypes = {
+  match: PropTypes.object.isRequired,
+  editValue: PropTypes.func.isRequired,
+  handleChangeValue: PropTypes.func.isRequired,
+  userCardItems: PropTypes.array.isRequired
+}
 
 export default UserPostsWrapper;

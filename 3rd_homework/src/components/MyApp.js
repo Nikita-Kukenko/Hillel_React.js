@@ -27,8 +27,9 @@ const MyApp = () => {
       .then(users => {
         setAppData(prevAppData => {
           return { ...prevAppData, userCardItems: users }
-        });
+        })
       })
+      .catch(error => console.log(error));
   }, []);
 
   const removeElement = (e, index) => {

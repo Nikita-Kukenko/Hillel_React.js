@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import '../UserCardAndPosts.css';
 
@@ -41,5 +42,12 @@ const AddUserModal = props => {
     </div>
   )
 };
+
+AddUserModal.propTypes = {
+  addNewElement: PropTypes.func.isRequired,
+  handleChangeValue: PropTypes.func.isRequired,
+  toggleAddUserButton: PropTypes.func.isRequired,
+  isAddButtonDisabled: PropTypes.string.isRequired
+}
 
 export default AddUserModal;

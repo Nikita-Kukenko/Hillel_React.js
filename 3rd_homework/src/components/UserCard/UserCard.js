@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import '../UserCardAndPosts.css';
 import EditComponent from './EditComponent.js'
@@ -259,5 +260,41 @@ const UserCard = props => {
     </div>
   )
 };
+
+UserCard.defaultProps = {
+  address: {},
+  phone: '',
+  website: '',
+  company: {},
+  street: '',
+  suite: '',
+  city: '',
+  zipcode: '',
+  catchPhrase: '',
+  bs: '',
+  removeElement: function() {},
+  goToCardIdPage: function() {}
+}
+
+UserCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  address: PropTypes.object,
+  phone: PropTypes.string,
+  website: PropTypes.string,
+  company: PropTypes.object,
+  removeElement: PropTypes.func,
+  currentIndex: PropTypes.number.isRequired,
+  editValue: PropTypes.func.isRequired,
+  goToCardIdPage: PropTypes.func,
+  street: PropTypes.string,
+  suite: PropTypes.string,
+  city: PropTypes.string,
+  zipcode: PropTypes.string,
+  catchPhrase: PropTypes.string,
+  bs: PropTypes.string
+}
 
 export default UserCard;
