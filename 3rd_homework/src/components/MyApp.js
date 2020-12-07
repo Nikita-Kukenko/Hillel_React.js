@@ -12,10 +12,10 @@ const MyApp = () => {
     newUserName: '',
     newUserEmail: '',
     newUserPhone: '',
-    showModal: false,
   }
 
   const [appData, setAppData] = useState(myAppData);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const usersUrl = 'https://jsonplaceholder.typicode.com/users';
@@ -48,9 +48,7 @@ const MyApp = () => {
   }
 
   const toggleAddUserButton = () => {
-    setAppData(prevAppData => {
-      return { ...prevAppData, showModal: !appData.showModal };
-    });
+    setShowModal(!showModal);
   }
 
   const addNewElement = () => {
@@ -103,7 +101,6 @@ const MyApp = () => {
 
   const {
     userCardItems,
-    showModal,
     newName,
     newUserName,
     newUserEmail,

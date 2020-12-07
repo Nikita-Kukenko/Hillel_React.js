@@ -8,6 +8,7 @@ import '../UserCardAndPosts.css';
 const UserPostsWrapper = ({ match, editValue, handleChangeValue, userCardItems }) => {
 
   const [userPostsItems, setUserPostsItems] = useState([]);
+  const [showElem, setShowElem] = useState(true);
 
   useEffect(() => {
     const postsUrl = 'https://jsonplaceholder.typicode.com/posts';
@@ -35,6 +36,7 @@ const UserPostsWrapper = ({ match, editValue, handleChangeValue, userCardItems }
          editValue={editValue}
          handleChangeValue={handleChangeValue}
          currentIndex={currentIndex}
+         showElem ={showElem}
        />
        }
       {

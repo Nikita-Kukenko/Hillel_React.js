@@ -22,7 +22,7 @@ const UserCard = props => {
     newValue: ''
   }
 
-  const [ userData, setUserData ] = useState(userCardData);
+  const [userData, setUserData] = useState(userCardData);
 
   const toggleNeedToEditValue = value => {
     setUserData(prevUserData => ({ ...prevUserData, [value]: !userData[value] }));
@@ -45,6 +45,7 @@ const UserCard = props => {
     currentIndex,
     editValue,
     goToCardIdPage,
+    showElem
   } = props;
   const { street, suite, city, zipcode } = address;
   const { name: companyName, catchPhrase, bs } = company;
@@ -68,7 +69,7 @@ const UserCard = props => {
 
   return (
     <div className='user-card'>
-      {goToCardIdPage && <span className="close" onClick={ e => removeElement(e, currentIndex) }></span>}
+      {!showElem && <span className="close" onClick={ e => removeElement(e, currentIndex) }></span>}
       <p>
         <b>ID: </b>
         {id}
@@ -256,7 +257,7 @@ const UserCard = props => {
           </p>
         </div>
       </div>
-      {goToCardIdPage && <button className='edit-cancel-submit' onClick={ e => goToCardIdPage(e, id) }>Look more...</button>}
+      {!showElem && <button className='edit-cancel-submit' onClick={ e => goToCardIdPage(e, id) }>Look more...</button>}
     </div>
   )
 };
