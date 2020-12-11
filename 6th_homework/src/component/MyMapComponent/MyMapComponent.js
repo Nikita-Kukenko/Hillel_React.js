@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
+import { GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
 
 import { ApartmentsContext } from '../../context/ApartmentsContext';
 

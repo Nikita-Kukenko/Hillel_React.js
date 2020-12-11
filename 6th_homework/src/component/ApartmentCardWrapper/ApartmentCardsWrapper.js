@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { ApartmentCard } from '../ApartmentCard/ApartmentCard';
+import { ApartmentCards } from '../ApartmentCard/ApartmentCards';
 import { MyMapComponent } from '../MyMapComponent/MyMapComponent';
-import '../AllComponentStyle.css';
+import '../AllComponentStyles.css';
 
 export const ApartmentCardsWrapper = () => {
   return (
     <div className="wrapper">
-      <ApartmentCard />
+      <div style={{ width: '50%' }}>
+        <h1 className="title">Accommodation in this area of the map:</h1>
+        <ApartmentCards />
+      </div>
       <MyMapComponent
         isMarkerShown
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"

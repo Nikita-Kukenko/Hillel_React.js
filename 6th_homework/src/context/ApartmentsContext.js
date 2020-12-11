@@ -9,8 +9,8 @@ export const ApartmentsContextProvider = ({ children }) => {
     fetch(`https://hotels4.p.rapidapi.com/properties/list?${new URLSearchParams({
       "destinationId": "1506246",
       "pageNumber": "1",
-      "checkIn": "2020-12-10",
-      "checkOut": "2020-12-25",
+      "checkIn": "2020-12-20",
+      "checkOut": "2020-12-31",
       "pageSize": "25",
       "adults1": "1",
       "currency": "USD",
@@ -25,7 +25,10 @@ export const ApartmentsContextProvider = ({ children }) => {
       }
     })
      .then(data => data.json())
-     .then(data => setApartmentsData(data.data.body.searchResults.results))
+     .then(data => {
+       console.log(data, 'data context');
+       return setApartmentsData(data.data.body.searchResults.results);
+     })
      .catch((error) => console.log(error))
   }, [])
 
