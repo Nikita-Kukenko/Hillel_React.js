@@ -9,7 +9,7 @@ export const ApartmentsContextProvider = ({ children }) => {
     fetch(`https://hotels4.p.rapidapi.com/properties/list?${new URLSearchParams({
       "destinationId": "1506246",
       "pageNumber": "1",
-      "checkIn": "2020-12-20",
+      "checkIn": "2020-12-26",
       "checkOut": "2020-12-31",
       "pageSize": "25",
       "adults1": "1",

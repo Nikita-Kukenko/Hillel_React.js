@@ -7,6 +7,8 @@ import StarIcon from'./icon/star_favorite.png'
 export const ApartmentCards = () => {
   const { apartments, setData } = useContext(ApartmentsContext);
 
+  apartments && console.log(apartments, 'apartments');
+
   return (
     apartments && apartments.map(apartment => {
       const {
@@ -22,13 +24,13 @@ export const ApartmentCards = () => {
 
       return (
         <div className="card-wrapper">
-          <img src={thumbnailUrl}></img>
+          <img src={thumbnailUrl} />
           <div className="card-info">
             <div>{name}</div>
             <h3>
               {`${countryName} ${locality},${region} ${streetAddress}`}
             </h3>
-            <span className="dash"></span>
+            <span className="dash" />
             <p style={{ fontStyle: 'italic'}}>
               {
               `${freeCancellation ? 'Free cancellation' : ''} 
@@ -43,7 +45,7 @@ export const ApartmentCards = () => {
             <p>
               {`${badgeText || 'Middling'}: `}
               <span style={{ fontWeight: `700` }}>{`${rating}`}</span>
-              <img className="star-icon" src={StarIcon}></img>
+              <img className="star-icon" src={StarIcon} />
             </p>
           </div>
         </div>
